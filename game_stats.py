@@ -2,11 +2,20 @@ from __future__ import annotations
 
 import json
 import time
+from collections import namedtuple
+
 from typing import TYPE_CHECKING
 from bonuses import BonusType, BonusesInfo
 
 if TYPE_CHECKING:
     from alien_invasion import AlienInvasion
+
+ScoreInfo = namedtuple('ScoreInfo', [
+    'score',
+    'level',
+    'time',
+    'name'
+])
 
 
 class GameStats:
@@ -17,7 +26,7 @@ class GameStats:
         self.high_score = 0
         self.level = 1
 
-        self.score_history = []
+        self.score_history: list[ScoreInfo] = []
         self.load_score_history()
 
         self.bonuses = {}
@@ -90,10 +99,10 @@ class GameStats:
     def load_score_history(self):
         try:
             with open("scores.json", "r") as f:
-                self.score_history = json.load(f)
+                self.score_history = [ScoreInfo(*x) for x in json.load(f)]
                 if self.score_history:
                     self.high_score = max(self.score_history,
-                                          key=lambda x: (x[0], x[1], x[2]))[0]
+                                          key=lambda x: x.score)[0]
         except FileNotFoundError:
             pass
 
@@ -104,7 +113,7 @@ class GameStats:
     def add_score(self, name: str):
         total_time = time.time() - (self.start_time + self.pause_time)
 
-        self.score_history.append((
+        self.score_history.append(ScoreInfo(
             self.score,
             self.level,
             round(total_time, 2),

@@ -101,11 +101,14 @@ class UI:
         title_text_size = len(self.titles_names) + 1
         self.highscore_list[title_text_size:] = []
 
-        scores = sorted(self.stats.score_history, key=lambda x: x[0], reverse=True)[:10]
+        scores = sorted(self.stats.score_history, key=lambda x: (
+            x.score, x.level, x.name
+        ), reverse=True)[:10]
+
         height = self.highscore_list[-1][1].centery
 
         for i, score in enumerate(scores):
-            items = score[3], f"{round(score[0]):,}", score[1], round(score[2] / 60, 2)
+            items = score.name, f"{round(score.score):,}", score.level, round(score.time / 60, 2)
 
             for n, item in enumerate(items):
                 score_image = self._prep_text(str(item), 32)

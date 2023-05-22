@@ -159,8 +159,3 @@ class AlienInvasion:
         valid = self.ui.check_name()
         if valid:
             self.game_state = GameState.MENU
-
-
-if __name__ == '__main__':
-    ai = AlienInvasion()
-    ai.run_game()
