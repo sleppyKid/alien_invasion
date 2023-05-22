@@ -2,6 +2,8 @@
 
 Modified version of Alien invasion game from book Python Crash Course
 
+![gameplay.gif](readme_gifs%2Fgameplay.gif)
+
 Used additional sprites for bonuses from: 
 https://sungraphica.itch.io/450-clean-flat-game-icons-ultimate-pack
 
@@ -13,6 +15,8 @@ Additions:
 - Stars background
 - Highscore system with entering name screen and saving to file
 - Leaderboard with top 10 scores
+
+![gameover.gif](readme_gifs%2Fgameover.gif)
 
 Installation:
 ```python
